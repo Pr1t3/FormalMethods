@@ -1,5 +1,5 @@
-from classes.FormulaAST import *
-from classes.TruthTable import TruthTable
+from taskA.classes.FormulaAST import *
+from taskA.classes.TruthTable import TruthTable
 from pyparsing import infixNotation, opAssoc, Word, alphas, Suppress
 from itertools import product
 
@@ -8,23 +8,23 @@ def to_string(formula: Operand) -> str:
     if isinstance(formula, Atom):
         return formula.name
     elif isinstance(formula, Not):
-        operand = f"({to_string(formula.operand)})" if curPrecedence >= formula.operand.precedence else to_string(formula.operand)
+        operand = f"({to_string(formula.operand)})" if curPrecedence > formula.operand.precedence else to_string(formula.operand)
         return f'¬{operand}'
     elif isinstance(formula, And):
-        left = f"({to_string(formula.left)})" if curPrecedence >= formula.left.precedence else to_string(formula.left)
-        right = f"({to_string(formula.right)})" if curPrecedence >= formula.right.precedence else to_string(formula.right)
+        left = f"({to_string(formula.left)})" if curPrecedence > formula.left.precedence else to_string(formula.left)
+        right = f"({to_string(formula.right)})" if curPrecedence > formula.right.precedence else to_string(formula.right)
         return f'{left} ∧ {right}'
     elif isinstance(formula, Or):
-        left = f"({to_string(formula.left)})" if curPrecedence >= formula.left.precedence else to_string(formula.left)
-        right = f"({to_string(formula.right)})" if curPrecedence >= formula.right.precedence else to_string(formula.right)
+        left = f"({to_string(formula.left)})" if curPrecedence > formula.left.precedence else to_string(formula.left)
+        right = f"({to_string(formula.right)})" if curPrecedence > formula.right.precedence else to_string(formula.right)
         return f'{left} ∨ {right}'
     elif isinstance(formula, Implies):
-        left = f"({to_string(formula.left)})" if curPrecedence >= formula.left.precedence else to_string(formula.left)
-        right = f"({to_string(formula.right)})" if curPrecedence >= formula.right.precedence else to_string(formula.right)
+        left = f"({to_string(formula.left)})" if curPrecedence > formula.left.precedence else to_string(formula.left)
+        right = f"({to_string(formula.right)})" if curPrecedence > formula.right.precedence else to_string(formula.right)
         return f'{left} → {right}'
     elif isinstance(formula, Iff):
-        left = f"({to_string(formula.left)})" if curPrecedence >= formula.left.precedence else to_string(formula.left)
-        right = f"({to_string(formula.right)})" if curPrecedence >= formula.right.precedence else to_string(formula.right)
+        left = f"({to_string(formula.left)})" if curPrecedence > formula.left.precedence else to_string(formula.left)
+        right = f"({to_string(formula.right)})" if curPrecedence > formula.right.precedence else to_string(formula.right)
         return f'{left} ↔ {right}'
     elif isinstance(formula, TrueConst):
         return '⊤'

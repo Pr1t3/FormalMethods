@@ -14,6 +14,6 @@ class TruthTable:
         lines = [header, empty_line]
         for interpretation, result in self.table:
             line = ' | '.join(str(int(interpretation[atom])) for atom in self.atoms)
-            line += ' | ' + ' ' * (len(self.formula) // 2) + str(int(result))
+            line += ' | ' + str(int(result))
             lines.append(line)
         return '\n'.join(lines)

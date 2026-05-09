@@ -24,11 +24,14 @@ def check_proof(proof: Proof) -> tuple[bool, list]:
         cited = steps[cited_idx]
         current = steps[current_idx]
 
+        if cited.rule == Rule.PREMISE:
+            return True
+
         if cited.level > current.level:
             return False
 
         for k in range(cited_idx + 1, current_idx):
-            if steps[k].level < cited.level:
+            if steps[k].level < cited.level or steps[k].level == cited.level and steps[k].rule == Rule.ASSUMPTION:
                 return False
         return True
 
